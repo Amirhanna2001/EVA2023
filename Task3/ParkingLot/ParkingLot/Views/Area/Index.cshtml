@@ -11,6 +11,7 @@
             <tr>
                 <th  >#</th>
                 <th  >Area Name</th>
+                <th  >Available Spots</th>
                 <th  >Actions</th>
                 
                 
@@ -22,6 +23,7 @@
                 <tr>
                     <th scope="row">@j</th>
                     <td>@Model[i].Name</td>
+                    <td>@Model[i].AvailableSpots</td>
                     <td>
                         <a class="btn btn-secondary" asp-action="Update" asp-route-id="@Model[i].Id">Update</a>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model[i].Id"

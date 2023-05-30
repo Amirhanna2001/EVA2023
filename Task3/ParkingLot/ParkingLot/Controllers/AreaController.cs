@@ -27,12 +27,14 @@ namespace ParkingLot.Controllers
             Area area = new()
             {
                 Name = viewModel.Name,
+                AvailableSpots = viewModel.AvailableSpots,
             };
             await _areaServices.Add(area);
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Update(int id)
         {
+            
             Area area = await _areaServices.Get(id);
             if (area == null)
                 return View("NotFound");
@@ -46,7 +48,8 @@ namespace ParkingLot.Controllers
         {
             if(area == null)
                 return View("NotFound");
-
+            if (!ModelState.IsValid)
+                return View(area);
 
             _areaServices.Update(area);
             return RedirectToAction(nameof(Index));
