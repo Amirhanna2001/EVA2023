@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<GeneralTypeServices<Area>,AreaServices>();
 builder.Services.AddScoped<GeneralTypeServices<VehicleType>,VehicleServices>();
+builder.Services.AddScoped<GeneralTypeServices<Spot>,SpotServices>();
 
 var app = builder.Build();
 

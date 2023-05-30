@@ -1,0 +1,32 @@
+﻿@model AddSpotViewModel
+@{
+    ViewData["Title"] = "Add New Spot";
+}
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<form method="post" asp-action="Add" class="col-6">
+    <div class="mb-3">
+        <label class="form-label" asp-for="PlateNumber"></label>
+        <input class="form-control" asp-for="PlateNumber">
+        <span asp-validation-for="PlateNumber" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="AreaId"></label>
+        <select class="form-control" asp-for="AreaId"
+                asp-items="@(new SelectList(Model.Areas,"ID","Name"))">
+            <option></option>
+        </select>
+        <span asp-validation-for="AreaId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="TypeId"></label>
+        <select class="form-control" asp-for="TypeId"
+                asp-items="@(new SelectList(Model.Types,"TypeId","Name"))">
+            <option></option>
+        </select>
+        <span asp-validation-for="AreaId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
