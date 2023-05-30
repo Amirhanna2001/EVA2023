@@ -31,6 +31,7 @@ namespace ParkingLot.Controllers
         }
         public async Task<IActionResult> Update(int id)
         {
+            
             VehicleType area = await _vehicleServices.Get(id);
             if (area == null)
                 return View("NotFound");
@@ -45,6 +46,8 @@ namespace ParkingLot.Controllers
             if (type == null)
                 return View("NotFound");
 
+            if (!ModelState.IsValid)
+                return View(type);
 
             _vehicleServices.Update(type);
             return RedirectToAction(nameof(Index));
