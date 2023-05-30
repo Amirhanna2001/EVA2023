@@ -1,0 +1,39 @@
+﻿@model List<Area>
+@{
+    ViewData["title"] = "All Areas";
+}
+<h1>@ViewData["Title"]</h1>
+<a class="btn btn-secondary" asp-action="Add">Add A New Area</a>
+<hr />
+@if(Model.Any()){
+    <table class="table">
+        <thead>
+            <tr>
+                <th  >#</th>
+                <th  >Area Name</th>
+                <th  >Actions</th>
+                
+                
+            </tr>
+        </thead>
+        @for(int i = 0, j = 1; i < Model.Count; ++i, ++j)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@j</th>
+                    <td>@Model[i].Name</td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Update" asp-route-id="@Model[i].Id">Update</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model[i].Id"
+                           onclick="return confirm('Are you sure you want to delete @Model[i].Name ?')">Delete</a>
+                    </td>
+                </tr>
+            
+          </tbody>
+        }
+        
+    </table>
+}
+else{
+    <div class="alert-warning">No Area Found !</div>
+}

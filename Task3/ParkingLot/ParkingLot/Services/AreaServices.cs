@@ -12,13 +12,17 @@ namespace ParkingLot.Services
         {
             _context = context;
         }
-        public async Task<Area> Add(Area area)
+        public async Task<Area> Get(int id)
+            => await _context.Areas.FindAsync(id);
+
+        public async Task<List<Area>> GetAll()
+            => await _context.Areas.ToListAsync();public async Task<Area> Add(Area area)
         {
             await _context.Areas.AddAsync(area);
             _context.SaveChanges();
             return area;
         }
-
+       
         public Area Delete(Area area)
         {
             _context.Areas.Remove(area);
@@ -26,12 +30,7 @@ namespace ParkingLot.Services
             return area;
         }
 
-        public async Task<Area> Get(int id)
-            => await _context.Areas.FindAsync(id);
-
-
-        public async Task<List<Area>> GetAll()
-            => await _context.Areas.ToListAsync();
+        
 
 
         public Area Update(Area area)

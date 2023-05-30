@@ -20,12 +20,28 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/College/Interns/Repo/EVA2023/Task3/ParkingLot/ParkingLot/Views/Area/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJlYVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/College/Interns/Repo/EVA2023/Task3/ParkingLot/ParkingLot/Views/Area/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJlYVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/College/Interns/Repo/EVA2023/Task3/ParkingLot/ParkingLot/Views/Area/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJlYVxVcGRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/College/Interns/Repo/EVA2023/Task3/ParkingLot/ParkingLot/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/College/Interns/Repo/EVA2023/Task3/ParkingLot/ParkingLot/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/College/Interns/Repo/EVA2023/Task3/ParkingLot/ParkingLot/Views/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90Rm91bmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/College/Interns/Repo/EVA2023/Task3/ParkingLot/ParkingLot/Views/Shared/Error.cshtml]
