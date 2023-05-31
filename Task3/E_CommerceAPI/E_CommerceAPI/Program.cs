@@ -1,4 +1,5 @@
 using E_CommerceAPI.Models;
+using E_CommerceAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 
 var app = builder.Build();
 
