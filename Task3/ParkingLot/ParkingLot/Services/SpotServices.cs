@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkingLot.Data;
 using ParkingLot.Models;
+using ParkingLot.ViewModels;
 
 namespace ParkingLot.Services
 {
-    public class SpotServices : GeneralTypeServices<Spot>
+    public class SpotServices : ISpotServices
     {
         private readonly ApplicationDbContext _context;
 
@@ -16,8 +17,26 @@ namespace ParkingLot.Services
             => await _context.Spots.FindAsync(id);
 
 
-        public async Task<List<Spot>> GetAll()
-            => await _context.Spots.ToListAsync();
+        public  List<SpotViewModel> GetAll()
+        {
+            List<SpotViewModel> spots = _context.Spots
+                .Join(_context.Areas,
+                    spot => spot.AreaId,
+                    area => area.Id,
+                    (spot, area) => new { Spot = spot, Area = area })
+                .Join(_context.VehicleTypes,
+                    combined => combined.Spot.TypeId,
+                    type => type.Id,
+                    (combined, type) => new SpotViewModel
+                    {
+                        Id = combined.Spot.Id,
+                        PlatNumber = combined.Spot.PlatNumber,
+                        Area = combined.Area.Name,
+                        Type = type.Name
+                    })
+                .ToList();
+            return spots;
+        }
 
         public async Task<Spot> Add(Spot spot)
         {
@@ -41,5 +60,6 @@ namespace ParkingLot.Services
             _context.SaveChanges();
             return spot;
         }
+
     }
 }

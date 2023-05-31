@@ -14,7 +14,7 @@
     <div class="mb-3">
         <label class="form-label" asp-for="AreaId"></label>
         <select class="form-control" asp-for="AreaId"
-                asp-items="@(new SelectList(Model.Areas,"ID","Name"))">
+                asp-items="@(new SelectList(Model.Areas,"AreaId","Name"))">
             <option></option>
         </select>
         <span asp-validation-for="AreaId" class="text-danger"></span>

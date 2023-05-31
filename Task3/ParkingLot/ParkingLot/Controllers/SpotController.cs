@@ -9,40 +9,20 @@ namespace ParkingLot.Controllers
 {
     public class SpotController : Controller
     {
-        private readonly GeneralTypeServices<Spot> _spotServices;
+        private readonly ISpotServices _spotServices;
         private readonly GeneralTypeServices<VehicleType> _typeServices;
         private readonly GeneralTypeServices<Area> _areaServices;
         private readonly ApplicationDbContext _context;
 
-        public SpotController(GeneralTypeServices<Spot> spotServices, ApplicationDbContext context,
+        public SpotController(ISpotServices spotServices,
             GeneralTypeServices<VehicleType> typeServices, GeneralTypeServices<Area> areaServices)
         {
             _spotServices = spotServices;
-            _context = context;
             _typeServices = typeServices;
             _areaServices = areaServices;
         }
-        public async Task< IActionResult> Index()
-        {
-           
-            List<SpotViewModel> spotViewModels = _context.Spots
-                 .Join(_context.Areas,
-                     spot => spot.AreaId,
-                     area => area.Id,
-                     (spot, area) => new { Spot = spot, Area = area })
-                 .Join(_context.VehicleTypes,
-                     combined => combined.Spot.TypeId,
-                     type => type.Id,
-                     (combined, type) => new SpotViewModel
-                     {
-                         
-                         Area = combined.Area.Name,
-                         Type = type.Name
-                     })
-                 .ToList(); List<SpotViewModel> viewModel = new();
-
-            return View(spotViewModels);
-        }
+        public async Task<IActionResult> Index()
+            => View( _spotServices.GetAll());
         public IActionResult Add()
         {
             AddSpotViewModel viewModel = new()
@@ -52,7 +32,7 @@ namespace ParkingLot.Controllers
             };
             return View(viewModel);
         }
-            
+
 
         [HttpPost]
         public async Task<IActionResult> Add(AddSpotViewModel viewModel)
@@ -60,12 +40,26 @@ namespace ParkingLot.Controllers
             if (!ModelState.IsValid)
                 return View(viewModel);
 
-            Spot spot =await _context.Spots.FirstAsync(s => s.PlatNumber == viewModel.PlateNumber);
-            if(spot != null)
+            Spot spot = await _context.Spots.FirstAsync(s => s.PlatNumber == viewModel.PlateNumber);
+            if (spot != null)
             {
                 ModelState.AddModelError("PlateNumber", "This Vhicle Aready Exsits");
                 return View(viewModel);
             }
+            Area area = await _areaServices.Get(viewModel.AreaId);
+            if (area == null)
+            {
+                ModelState.AddModelError("AreaId", "This Area Not Found");
+                return View(viewModel);
+            }
+
+            VehicleType type = await _typeServices.Get(viewModel.TypeId);
+            if (type == null)
+            {
+                ModelState.AddModelError("TypeId", "This Type Not Found");
+                return View(viewModel);
+            }
+
             Spot spotToInsert = new()
             {
                 PlatNumber = viewModel.PlateNumber,
@@ -75,37 +69,18 @@ namespace ParkingLot.Controllers
 
             await _spotServices.Add(spotToInsert);
             return RedirectToAction(nameof(Index));
+            
         }
-        public async Task<IActionResult> Update(int id)
-        {
-
-            Area area = await _areaServices.Get(id);
-            if (area == null)
-                return View("NotFound");
-
-
-            return View(area);
-
-        }
-        [HttpPost]
-        public IActionResult Update(Area area)
-        {
-            if (area == null)
-                return View("NotFound");
-            if (!ModelState.IsValid)
-                return View(area);
-
-            _areaServices.Update(area);
-            return RedirectToAction(nameof(Index));
-        }
+    
+       
 
         public async Task<IActionResult> Delete(int id)
         {
-            Area area = await _areaServices.Get(id);
-            if (area == null)
+           Spot spot = await _spotServices.Get(id);
+            if (spot == null)
                 return View("NotFound");
 
-            _areaServices.Delete(area);
+            _spotServices.Delete(spot);
 
             return RedirectToAction(nameof(Index));
         }

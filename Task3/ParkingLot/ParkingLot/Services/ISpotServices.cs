@@ -5,11 +5,11 @@ namespace ParkingLot.Services
 {
     public interface ISpotServices
     {
-        //Task<List<SpotViewModel>> GetAll();
-        //Task<Spot> Add(Spot entity);
-        //Task<Spot> Get(int id);
-        //Spot Update(Spot entity);
-        //Spot Delete(Spot entity);
+        List<SpotViewModel> GetAll();
+        Task<Spot> Add(Spot entity);
+        Task<Spot> Get(int id);
+        Spot Update(Spot entity);
+        Spot Delete(Spot entity);
     }
 
 }
